@@ -32,8 +32,8 @@ namespace PrefabTemplate.View {
       if (GUILayout.Button("Begin Import", GUILayout.Width(100))) {
         ImageResourceLoader imageLoader = new ImageResourceLoader(this.importDirectory, this.outputDirectory + "/Images");
         PrefabTemplateLoader prefabTemplateLoader = new PrefabTemplateLoader(this.prefabTemplateDirectory, this.outputDirectory + "/Prefabs");
+        TemplateImport import = new TemplateImport(imageLoader.Get());
 
-        List<ImageResource> images = imageLoader.Get();
         List<Templates.PrefabTemplate> templates = prefabTemplateLoader.Get();
         ImageResourceComparer comparer = new ImageResourceComparer();
 
@@ -42,8 +42,11 @@ namespace PrefabTemplate.View {
           List<Assignment> assignments = new List<Assignment>();
 
           foreach (Changeable changeable in template.changeables) {
-            Assignment assignment = changeable.CreateAssignment(images);
-            images.Sort(comparer);
+            Assignment assignment = changeable.CreateAssignment(import.Images);
+
+            // Sort after every assignment so that unassigned images come first
+            import.Images.Sort(comparer);
+
             assignments.Add(assignment);
           }
 

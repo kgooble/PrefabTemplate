@@ -1,14 +1,23 @@
 ﻿using System;
+using PrefabTemplate.Loader;
 using PrefabTemplate.Templates.Changeables;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PrefabTemplate.Templates.Assignments {
   public class SpriteAssignment : Assignment {
-    public Sprite sprite { get; set; }
+    private readonly SimpleTextureImportSettings textureSettings;
+    private ImageResource resource;
 
-    public SpriteAssignment(ChangeableImageSprite changeable, Sprite sprite) : base(changeable) {
-      this.sprite = sprite;
+    public Sprite sprite {
+      get {
+        return this.resource.sprite;
+      }
+    }
+
+    public SpriteAssignment(ChangeableImageSprite changeable, ImageResource resource, SimpleTextureImportSettings textureSettings) : base(changeable) {
+      this.resource = resource;
+      this.textureSettings = textureSettings;
     }
 
     public override Type AssignmentType {
@@ -27,6 +36,24 @@ namespace PrefabTemplate.Templates.Assignments {
       foreach (Image img in changeable.images) {
         img.sprite = this.sprite;
       }
+
+      this.resource.RenameAsset(this.textureSettings.name);
+      this.resource.ApplyTextureImportSettings(this.textureSettings);
+    }
+
+    public void UpdateResource(ImageResource resource) {
+      if (resource == null) {
+        Debug.LogError("Cannot set as sprite assignment. No such image resource was imported.");
+        return;
+      }
+
+      if (resource == this.resource) {
+        return;
+      }
+
+      this.resource.DecrementUsages();
+      this.resource = resource;
+      this.resource.IncrementUsages();
     }
   }
 }

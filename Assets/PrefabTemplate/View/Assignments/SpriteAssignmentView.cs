@@ -1,4 +1,5 @@
-﻿using PrefabTemplate.Templates.Assignments;
+﻿using PrefabTemplate.Loader;
+using PrefabTemplate.Templates.Assignments;
 using PrefabTemplate.Utility;
 using UnityEngine;
 
@@ -24,7 +25,9 @@ namespace PrefabTemplate.View.Assignments {
       #if UNITY_EDITOR
       EditorTools.FieldTypeLabel("Sprite");
       EditorTools.FieldNameLabel(this.Name);
-      this.assignment.sprite = EditorGUILayout.ObjectField(this.assignment.sprite, typeof(Sprite), allowSceneObjects: true) as Sprite;
+      Sprite newSprite = EditorGUILayout.ObjectField(this.assignment.sprite, typeof(Sprite), allowSceneObjects: true) as Sprite;
+      ImageResource resource = TemplateImport.Instance.FindResource(newSprite);
+      this.assignment.UpdateResource(resource);
       #endif
     }
   }

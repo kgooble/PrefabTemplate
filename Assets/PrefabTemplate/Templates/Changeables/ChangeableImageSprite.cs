@@ -18,18 +18,17 @@ namespace PrefabTemplate.Templates.Changeables {
     }
 
     public override Assignment CreateAssignment(List<ImageResource> resources) {
-      Sprite sprite = null;
+      ImageResource finalResource = null;
 
       foreach (ImageResource resource in resources) {
         if (this.Fits(resource.Width, resource.Height)) {
-          sprite = resource.sprite;
-          resource.ApplyTextureImportSettings(this.textureSettings);
+          finalResource = resource;
           resource.IncrementUsages();
           break;
         }
       }
 
-      return new SpriteAssignment(this, sprite);
+      return new SpriteAssignment(this, finalResource, this.textureSettings);
     }
   }
 }

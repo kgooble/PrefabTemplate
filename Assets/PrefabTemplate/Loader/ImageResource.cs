@@ -9,7 +9,7 @@ using UnityEditor;
 namespace PrefabTemplate.Loader {
   public class ImageResource {
     public readonly Sprite sprite;
-    private readonly string path;
+    private string path;
 
     public ImageResource(Sprite sprite, string path) {
       this.sprite = sprite;
@@ -35,11 +35,21 @@ namespace PrefabTemplate.Loader {
       this.Usages++;
     }
 
+    public void DecrementUsages() {
+      this.Usages--;
+    }
+
+    public void RenameAsset(string newName) {
+      #if UNITY_EDITOR
+      string newPath = this.path.Substring(0, this.path.LastIndexOf("/")) + "/" + newName + ".png";
+      AssetDatabase.RenameAsset(this.path, newName);
+      this.path = newPath;
+      #endif
+    }
+
     public void ApplyTextureImportSettings(SimpleTextureImportSettings textureSettings) {
       #if UNITY_EDITOR
-      string newPath = this.path.Substring(0, this.path.LastIndexOf("/")) + "/" + textureSettings.name + ".png";
-      AssetDatabase.RenameAsset(this.path, textureSettings.name);
-      TextureImporter importer = AssetImporter.GetAtPath(newPath) as TextureImporter;
+      TextureImporter importer = AssetImporter.GetAtPath(this.path) as TextureImporter;
       importer.alphaIsTransparency = textureSettings.alphaIsTransparency;
       importer.maxTextureSize = textureSettings.maxTextureSize;
       importer.mipmapEnabled = textureSettings.mipmapEnabled;
