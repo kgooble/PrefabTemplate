@@ -9,9 +9,9 @@ using UnityEditor;
 
 namespace PrefabTemplate.View.Assignments {
   public class SpriteAssignmentView : AssignmentView {
-    private readonly SpriteAssignment assignment;
+    private readonly ImageSpriteAssignment assignment;
 
-    public SpriteAssignmentView(SpriteAssignment assignment) {
+    public SpriteAssignmentView(ImageSpriteAssignment assignment) {
       this.assignment = assignment;
     }
 

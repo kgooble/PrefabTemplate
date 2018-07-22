@@ -41,6 +41,11 @@ namespace PrefabTemplate.Loader {
 
     public void RenameAsset(string newName) {
       #if UNITY_EDITOR
+      if (string.IsNullOrEmpty(newName)) {
+        Debug.Log("Skipping rename of " + this.sprite.name + " since new name was empty.");
+        return;
+      }
+
       string newPath = this.path.Substring(0, this.path.LastIndexOf("/")) + "/" + newName + ".png";
       AssetDatabase.RenameAsset(this.path, newName);
       this.path = newPath;

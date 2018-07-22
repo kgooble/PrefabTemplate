@@ -7,28 +7,13 @@ using UnityEngine.UI;
 
 namespace PrefabTemplate.Templates.Changeables {
   [Serializable]
-  public class ChangeableImageSprite : Changeable {
+  public class ChangeableImageSprite : StandaloneSprite {
     public Image[] images;
-    public Vector2 minSize;
-    public Vector2 maxSize;
-    public SimpleTextureImportSettings textureSettings;
 
-    public bool Fits(int width, int height) {
-      return this.minSize.x <= width && width <= this.maxSize.x && this.minSize.y <= height && height <= this.maxSize.y;
-    }
-
-    public override Assignment CreateAssignment(List<ImageResource> resources) {
-      ImageResource finalResource = null;
-
-      foreach (ImageResource resource in resources) {
-        if (this.Fits(resource.Width, resource.Height)) {
-          finalResource = resource;
-          resource.IncrementUsages();
-          break;
-        }
+    public override void Apply(Sprite sprite) {
+      foreach (Image img in this.images) {
+        img.sprite = sprite;
       }
-
-      return new SpriteAssignment(this, finalResource, this.textureSettings);
     }
   }
 }

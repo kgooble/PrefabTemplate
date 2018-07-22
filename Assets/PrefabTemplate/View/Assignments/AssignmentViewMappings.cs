@@ -6,7 +6,7 @@ namespace PrefabTemplate.View.Assignments {
   public static class AssignmentViewMappings {
     public static AssignmentView Get(Assignment assignment) {
       if (assignment.AssignmentType == typeof(Texture2D)) {
-        return new SpriteAssignmentView(assignment as SpriteAssignment);
+        return new SpriteAssignmentView(assignment as ImageSpriteAssignment);
       }
 
       if (assignment.AssignmentType == typeof(Color)) {

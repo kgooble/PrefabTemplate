@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace PrefabTemplate.Templates.Assignments {
-  public class SpriteAssignment : Assignment {
+  public class ImageSpriteAssignment : Assignment {
     private readonly SimpleTextureImportSettings textureSettings;
     private ImageResource resource;
 
@@ -15,7 +15,7 @@ namespace PrefabTemplate.Templates.Assignments {
       }
     }
 
-    public SpriteAssignment(ChangeableImageSprite changeable, ImageResource resource, SimpleTextureImportSettings textureSettings) : base(changeable) {
+    public ImageSpriteAssignment(StandaloneSprite changeable, ImageResource resource, SimpleTextureImportSettings textureSettings) : base(changeable) {
       this.resource = resource;
       this.textureSettings = textureSettings;
     }
@@ -31,11 +31,9 @@ namespace PrefabTemplate.Templates.Assignments {
         return;
       }
 
-      ChangeableImageSprite changeable = this.changeable as ChangeableImageSprite;
+      StandaloneSprite changeable = this.changeable as StandaloneSprite;
 
-      foreach (Image img in changeable.images) {
-        img.sprite = this.sprite;
-      }
+      changeable.Apply(this.sprite);
 
       this.resource.RenameAsset(this.textureSettings.name);
       this.resource.ApplyTextureImportSettings(this.textureSettings);
