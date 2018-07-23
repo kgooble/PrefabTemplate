@@ -30,13 +30,6 @@ namespace PrefabTemplate.Templates {
   [CustomEditor(typeof(PrefabTemplate))]
   public class PrefabTemplateEditor : Editor
   {
-    SerializedProperty changeables;
-
-    private void OnEnable()
-    {
-      changeables = serializedObject.FindProperty("changeables");
-    }
-
     public override void OnInspectorGUI()
     {
       serializedObject.Update();

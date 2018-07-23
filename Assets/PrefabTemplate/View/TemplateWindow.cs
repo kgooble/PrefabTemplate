@@ -4,34 +4,34 @@ using PrefabTemplate.Templates;
 using PrefabTemplate.Templates.Assignments;
 using PrefabTemplate.Templates.Changeables;
 using UnityEngine;
-
+using UnityEngine.Events;
 #if UNITY_EDITOR
 using UnityEditor;
 
 namespace PrefabTemplate.View {
   public class TemplateWindow : EditorWindow {
-    private string importDirectory;
-    private string prefabTemplateDirectory;
-    private string outputDirectory;
+    public static string importDirectory;
+    public static string prefabTemplateDirectory;
+    public static string outputDirectory;
+    public static UnityAction onComplete;
+
     private List<TemplateView> templateViews;
 
-    // Add menu named "My Window" to the Window menu
-    [MenuItem("PrefabTemplate/Show Window")]
+    // [MenuItem("PrefabTemplate/Show Window")]
     static void Init()
     {
-      // Get existing open window or if none, make a new one:
       TemplateWindow window = (TemplateWindow)EditorWindow.GetWindow(typeof(TemplateWindow));
       window.Show();
     }
 
     private void OnGUI() {
-      this.importDirectory = this.GetPath(this.importDirectory, "Import Directory:", "Select Folder", "Select a folder to import from.");
-      this.prefabTemplateDirectory = this.GetPath(this.prefabTemplateDirectory, "Prefab Templates:", "Select Folder", "Select a prefab template folder.");
-      this.outputDirectory = this.GetPath(this.outputDirectory, "Output Directory:", "Select Folder", "Select an output directory.");
+      importDirectory = this.GetPath(importDirectory, "Import Directory:", "Select Folder", "Select a folder to import from.");
+      prefabTemplateDirectory = this.GetPath(prefabTemplateDirectory, "Prefab Templates:", "Select Folder", "Select a prefab template folder.");
+      outputDirectory = this.GetPath(outputDirectory, "Output Directory:", "Select Folder", "Select an output directory.");
 
       if (GUILayout.Button("Begin Import", GUILayout.Width(100))) {
-        ImageResourceLoader imageLoader = new ImageResourceLoader(this.importDirectory, this.outputDirectory + "/Images");
-        PrefabTemplateLoader prefabTemplateLoader = new PrefabTemplateLoader(this.prefabTemplateDirectory, this.outputDirectory + "/Prefabs");
+        ImageResourceLoader imageLoader = new ImageResourceLoader(importDirectory, outputDirectory + "/Images");
+        PrefabTemplateLoader prefabTemplateLoader = new PrefabTemplateLoader(prefabTemplateDirectory, outputDirectory + "/Prefabs");
         TemplateImport import = new TemplateImport(imageLoader.Get(), prefabTemplateLoader.Get());
 
         ImageResourceComparer comparer = new ImageResourceComparer();
@@ -85,6 +85,11 @@ namespace PrefabTemplate.View {
 
           this.templateViews = null;
           TemplateImport.Clear();
+
+          if (onComplete != null) {
+            onComplete();
+            onComplete = null;
+          }
         }
       }
     }
