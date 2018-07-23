@@ -73,6 +73,15 @@ namespace PrefabTemplate.View {
             template.Cleanup();
           }
 
+          foreach (ImageResource resource in TemplateImport.Instance.Images) {
+            Debug.Log("Resource " + resource.sprite.name + " had " + resource.Usages + " usages");
+
+            if (resource.Usages <= 0) {
+              Debug.Log("Deleting " + resource.sprite.name);
+              resource.DeleteAsset();
+            }
+          }
+
           this.templateViews = null;
         }
       }

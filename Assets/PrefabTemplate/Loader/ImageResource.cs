@@ -52,6 +52,10 @@ namespace PrefabTemplate.Loader {
       #endif
     }
 
+    public void DeleteAsset() {
+      AssetDatabase.DeleteAsset(this.path);
+    }
+
     public void ApplyTextureImportSettings(SimpleTextureImportSettings textureSettings) {
       #if UNITY_EDITOR
       TextureImporter importer = AssetImporter.GetAtPath(this.path) as TextureImporter;

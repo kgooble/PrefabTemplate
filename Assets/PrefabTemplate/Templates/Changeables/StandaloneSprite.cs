@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using PrefabTemplate.Loader;
 using PrefabTemplate.Templates.Assignments;
+using UnityEditor;
 using UnityEngine;
 
 namespace PrefabTemplate.Templates.Changeables {
