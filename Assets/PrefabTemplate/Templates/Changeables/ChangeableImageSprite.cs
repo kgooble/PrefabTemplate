@@ -10,6 +10,12 @@ namespace PrefabTemplate.Templates.Changeables {
   public class ChangeableImageSprite : StandaloneSprite {
     public Image[] images;
 
+    public override bool PrefabRequired {
+      get {
+        return true;
+      }
+    }
+
     public override void Apply(Sprite sprite) {
       foreach (Image img in this.images) {
         img.sprite = sprite;

@@ -7,10 +7,22 @@ using UnityEditor;
 
 namespace PrefabTemplate.Templates {
   public class PrefabTemplate : MonoBehaviour {
+    public bool Required { get; private set; }
+
     public Changeable[] changeables;
 
     public void Cleanup() {
+      if (!this.Required) {
+        string path = AssetDatabase.GetAssetPath(this.gameObject.GetInstanceID());
+        AssetDatabase.DeleteAsset(path);
+        Debug.Log("Deleting asset at path, since it was not required: " + path);
+      }
+
       DestroyImmediate(this, true);
+    }
+
+    public void MarkRequired() {
+      this.Required = true;
     }
   }
 

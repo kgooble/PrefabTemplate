@@ -22,6 +22,7 @@ namespace PrefabTemplate.Templates.Assignments {
 
       ChangeableString changeable = this.changeable as ChangeableString;
       changeable.Apply(this.stringValue);
+      this.template.MarkRequired();
     }
   }
 }

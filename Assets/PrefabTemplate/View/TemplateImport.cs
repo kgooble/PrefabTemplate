@@ -6,11 +6,14 @@ namespace PrefabTemplate.View {
   public class TemplateImport {
     public static TemplateImport Instance { get; private set; }
 
-    public List<ImageResource> Images { get; set; }
+    public List<ImageResource> Images { get; private set; }
 
-    public TemplateImport(List<ImageResource> images) {
+    public List<Templates.PrefabTemplate> Templates { get; private set; }
+
+    public TemplateImport(List<ImageResource> images, List<Templates.PrefabTemplate> templates) {
       Instance = this;
       this.Images = images;
+      this.Templates = templates;
     }
 
     public ImageResource FindResource(Sprite sprite) {
@@ -21,6 +24,10 @@ namespace PrefabTemplate.View {
       }
 
       return null;
+    }
+
+    public static void Clear() {
+      Instance = null;
     }
   }
 }

@@ -32,17 +32,18 @@ namespace PrefabTemplate.View {
       if (GUILayout.Button("Begin Import", GUILayout.Width(100))) {
         ImageResourceLoader imageLoader = new ImageResourceLoader(this.importDirectory, this.outputDirectory + "/Images");
         PrefabTemplateLoader prefabTemplateLoader = new PrefabTemplateLoader(this.prefabTemplateDirectory, this.outputDirectory + "/Prefabs");
-        TemplateImport import = new TemplateImport(imageLoader.Get());
+        TemplateImport import = new TemplateImport(imageLoader.Get(), prefabTemplateLoader.Get());
 
-        List<Templates.PrefabTemplate> templates = prefabTemplateLoader.Get();
         ImageResourceComparer comparer = new ImageResourceComparer();
 
         this.templateViews = new List<TemplateView>();
-        foreach (Templates.PrefabTemplate template in templates) {
+        foreach (Templates.PrefabTemplate template in import.Templates) {
           List<Assignment> assignments = new List<Assignment>();
 
           foreach (Changeable changeable in template.changeables) {
             Assignment assignment = changeable.CreateAssignment(import.Images);
+
+            assignment.SetTemplate(template);
 
             // Sort after every assignment so that unassigned images come first
             import.Images.Sort(comparer);
@@ -83,6 +84,7 @@ namespace PrefabTemplate.View {
           }
 
           this.templateViews = null;
+          TemplateImport.Clear();
         }
       }
     }

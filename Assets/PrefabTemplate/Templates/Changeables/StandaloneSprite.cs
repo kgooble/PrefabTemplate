@@ -12,6 +12,12 @@ namespace PrefabTemplate.Templates.Changeables {
     public Vector2 maxSize;
     public SimpleTextureImportSettings textureSettings;
 
+    public virtual bool PrefabRequired {
+      get {
+        return false;
+      }
+    }
+
     public bool Fits(int width, int height) {
       return this.minSize.x <= width && width <= this.maxSize.x && this.minSize.y <= height && height <= this.maxSize.y;
     }

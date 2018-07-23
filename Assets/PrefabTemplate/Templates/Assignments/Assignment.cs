@@ -5,6 +5,7 @@ using UnityEngine;
 namespace PrefabTemplate.Templates.Assignments {
   public abstract class Assignment {
     public Changeable changeable;
+    public PrefabTemplate template;
 
     protected Assignment(Changeable changeable) {
       this.changeable = changeable;
@@ -17,6 +18,10 @@ namespace PrefabTemplate.Templates.Assignments {
     public void Cleanup() {
       GameObject.DestroyImmediate(this.changeable, true);
       this.changeable = null;
+    }
+
+    public void SetTemplate(PrefabTemplate template) {
+      this.template = template;
     }
   }
 }

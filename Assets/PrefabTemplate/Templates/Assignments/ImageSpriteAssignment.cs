@@ -37,6 +37,10 @@ namespace PrefabTemplate.Templates.Assignments {
 
       this.resource.RenameAsset(this.textureSettings.name);
       this.resource.ApplyTextureImportSettings(this.textureSettings);
+
+      if (changeable.PrefabRequired) {
+        this.template.MarkRequired();
+      }
     }
 
     public void UpdateResource(ImageResource resource) {

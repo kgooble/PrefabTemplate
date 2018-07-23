@@ -23,6 +23,7 @@ namespace PrefabTemplate.Templates.Assignments {
 
       ChangeableColor changeable = this.changeable as ChangeableColor;
       changeable.Apply(this.color);
+      this.template.MarkRequired();
     }
   }
 }
