@@ -5,6 +5,12 @@ namespace PrefabTemplate.Templates.Changeables {
   public class ChangeableFontColor : ChangeableColor {
     public Text[] texts;
 
+    public override bool PrefabRequired {
+      get {
+        return true;
+      }
+    }
+
     public override string Name {
       get {
         if (this.texts.Length == 0 || this.texts[0] == null) {

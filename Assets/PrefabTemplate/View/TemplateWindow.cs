@@ -69,10 +69,16 @@ namespace PrefabTemplate.View {
         if (GUILayout.Button("Export", GUILayout.Width(100))) {
           foreach (TemplateView view in this.templateViews) {
             Templates.PrefabTemplate template = view.template;
+            bool required = false;
 
             foreach (Assignment assignment in view.assignments) {
+              required |= assignment.PrefabRequired;
               assignment.Apply();
               assignment.Cleanup();
+            }
+
+            if (required) {
+              template.MarkRequired();
             }
 
             template.Cleanup();

@@ -16,7 +16,7 @@ namespace PrefabTemplate.Templates.Changeables {
     [Header("Import Settings")]
     public SimpleTextureImportSettings textureSettings;
 
-    public virtual bool PrefabRequired {
+    public override bool PrefabRequired {
       get {
         return false;
       }

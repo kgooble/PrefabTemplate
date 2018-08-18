@@ -5,6 +5,12 @@ namespace PrefabTemplate.Templates.Changeables {
   public class ChangeableShadowColor : ChangeableColor {
     public Shadow[] shadows;
 
+    public override bool PrefabRequired {
+      get {
+        return true;
+      }
+    }
+
     public override string Name {
       get {
         if (this.shadows.Length == 0 || this.shadows[0] == null) {

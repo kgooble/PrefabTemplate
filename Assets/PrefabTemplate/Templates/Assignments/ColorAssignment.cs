@@ -3,7 +3,7 @@ using PrefabTemplate.Templates.Changeables;
 using UnityEngine;
 
 namespace PrefabTemplate.Templates.Assignments {
-  public class ColorAssignment : Assignment{
+  public class ColorAssignment : Assignment {
     public Color color { get; set; }
 
     public ColorAssignment(ChangeableColor changeable, Color color) : base(changeable) {
@@ -23,7 +23,6 @@ namespace PrefabTemplate.Templates.Assignments {
 
       ChangeableColor changeable = this.changeable as ChangeableColor;
       changeable.Apply(this.color);
-      this.template.MarkRequired();
     }
   }
 }

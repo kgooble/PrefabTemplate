@@ -15,6 +15,12 @@ namespace PrefabTemplate.Templates.Assignments {
 
     public abstract void Apply();
 
+    public bool PrefabRequired {
+      get {
+        return this.changeable.PrefabRequired;
+      }
+    }
+
     public void Cleanup() {
       GameObject.DestroyImmediate(this.changeable, true);
       this.changeable = null;
