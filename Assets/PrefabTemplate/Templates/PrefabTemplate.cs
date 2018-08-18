@@ -1,4 +1,5 @@
-﻿using PrefabTemplate.Templates.Changeables;
+﻿using System;
+using PrefabTemplate.Templates.Changeables;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -39,6 +40,18 @@ namespace PrefabTemplate.Templates {
       if (GUILayout.Button("Auto-Fill")) {
         PrefabTemplate obj = serializedObject.targetObject as PrefabTemplate;
         Changeable[] ch = obj.gameObject.GetComponentsInChildren<Changeable>(true);
+        Array.Sort(ch, (x, y) => {
+          if (x is ChangeableFileName) {
+            return 1;
+          }
+
+          if (y is ChangeableFileName) {
+            return -1;
+          }
+
+          return x.name.CompareTo(y.name);
+        });
+
         obj.changeables = ch;
       }
 
