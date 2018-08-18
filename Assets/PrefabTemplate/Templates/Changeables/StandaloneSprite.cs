@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using PrefabTemplate.Loader;
 using PrefabTemplate.Templates.Assignments;
+using PrefabTemplate.View;
 using UnityEngine;
 
 namespace PrefabTemplate.Templates.Changeables {
@@ -37,10 +38,10 @@ namespace PrefabTemplate.Templates.Changeables {
     public virtual void Apply(Sprite sprite) {
     }
 
-    public override Assignment CreateAssignment(List<ImageResource> resources) {
+    public override Assignment CreateAssignment(TemplateResourceData resources) {
       ImageResource finalResource = null;
 
-      foreach (ImageResource resource in resources) {
+      foreach (ImageResource resource in resources.Images) {
         if (this.Fits(resource.Name, resource.Width, resource.Height)) {
           finalResource = resource;
           resource.IncrementUsages();

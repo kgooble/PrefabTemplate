@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using PrefabTemplate.Loader;
-using PrefabTemplate.Templates.Assignments;
+﻿using PrefabTemplate.Templates.Assignments;
+using PrefabTemplate.View;
 
 namespace PrefabTemplate.Templates.Changeables {
   public abstract class ChangeableString : Changeable {
     public string defaultString;
 
-    public override Assignment CreateAssignment(List<ImageResource> resources) {
+    public override Assignment CreateAssignment(TemplateResourceData resources) {
       return new StringAssignment(this, this.defaultString);
     }
 

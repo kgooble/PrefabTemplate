@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using PrefabTemplate.Loader;
-using PrefabTemplate.Templates.Assignments;
+﻿using PrefabTemplate.Templates.Assignments;
+using PrefabTemplate.View;
 using UnityEngine;
 
 namespace PrefabTemplate.Templates.Changeables {
@@ -9,7 +8,7 @@ namespace PrefabTemplate.Templates.Changeables {
 
     public abstract void Apply(Color color);
 
-    public override Assignment CreateAssignment(List<ImageResource> resources) {
+    public override Assignment CreateAssignment(TemplateResourceData resources) {
       return new ColorAssignment(this, this.defaultColor);
     }
   }

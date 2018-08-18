@@ -14,6 +14,7 @@ namespace PrefabTemplate.View {
     public static string prefabTemplateDirectory;
     public static string outputDirectory;
     public static UnityAction onComplete;
+    public static Dictionary<string, string> stringReplacements;
 
     private List<TemplateView> templateViews;
 
@@ -35,7 +36,7 @@ namespace PrefabTemplate.View {
       if (GUILayout.Button("Begin Import", GUILayout.Width(100))) {
         ImageResourceLoader imageLoader = new ImageResourceLoader(importDirectory, outputDirectory + "/Images");
         PrefabTemplateLoader prefabTemplateLoader = new PrefabTemplateLoader(prefabTemplateDirectory, outputDirectory + "/Prefabs");
-        TemplateImport import = new TemplateImport(imageLoader.Get(), prefabTemplateLoader.Get());
+        TemplateImport import = new TemplateImport(imageLoader.Get(), prefabTemplateLoader.Get(), stringReplacements ?? new Dictionary<string, string>());
 
         ImageResourceComparer comparer = new ImageResourceComparer();
 
@@ -44,12 +45,12 @@ namespace PrefabTemplate.View {
           List<Assignment> assignments = new List<Assignment>();
 
           foreach (Changeable changeable in template.changeables) {
-            Assignment assignment = changeable.CreateAssignment(import.Images);
+            Assignment assignment = changeable.CreateAssignment(import.ResourceData);
 
             assignment.SetTemplate(template);
 
             // Sort after every assignment so that unassigned images come first
-            import.Images.Sort(comparer);
+            import.ResourceData.Images.Sort(comparer);
 
             assignments.Add(assignment);
           }
@@ -77,7 +78,7 @@ namespace PrefabTemplate.View {
             template.Cleanup();
           }
 
-          foreach (ImageResource resource in TemplateImport.Instance.Images) {
+          foreach (ImageResource resource in TemplateImport.Instance.ResourceData.Images) {
 
             if (resource.Usages <= 0) {
               Debug.Log("Resource " + resource.sprite.name + " had 0 usages, <color=red>deleting</color>.");
