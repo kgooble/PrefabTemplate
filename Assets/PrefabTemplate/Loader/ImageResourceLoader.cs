@@ -15,11 +15,13 @@ namespace PrefabTemplate.Loader {
         (originalPath, absolutePath, relativePath) => {
           File.Copy(originalPath, absolutePath);
 
+          Sprite sprite = null;
+
           #if UNITY_EDITOR
           AssetDatabase.ImportAsset(relativePath);
+          sprite = AssetDatabase.LoadAssetAtPath<Sprite>(relativePath);
           #endif
 
-          Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(relativePath);
           return new ImageResource(sprite, relativePath);
         }) {
     }

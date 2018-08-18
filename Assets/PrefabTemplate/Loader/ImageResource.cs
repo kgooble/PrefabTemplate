@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using PrefabTemplate.Templates.Changeables;
 using UnityEngine;
 
@@ -18,6 +18,12 @@ namespace PrefabTemplate.Loader {
     }
 
     public int Usages { get; private set; }
+
+    public string Name {
+      get {
+        return this.sprite.name;
+      }
+    }
 
     public int Width {
       get {
@@ -53,7 +59,9 @@ namespace PrefabTemplate.Loader {
     }
 
     public void DeleteAsset() {
+      #if UNITY_EDITOR
       AssetDatabase.DeleteAsset(this.path);
+      #endif
     }
 
     public void ApplyTextureImportSettings(SimpleTextureImportSettings textureSettings) {
@@ -63,6 +71,8 @@ namespace PrefabTemplate.Loader {
       importer.maxTextureSize = textureSettings.maxTextureSize;
       importer.mipmapEnabled = textureSettings.mipmapEnabled;
       importer.wrapMode = textureSettings.wrapMode;
+      importer.textureCompression = textureSettings.compression;
+      importer.compressionQuality = (int)textureSettings.compressionQuality;
       importer.SaveAndReimport();
       #endif
     }

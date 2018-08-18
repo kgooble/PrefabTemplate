@@ -11,6 +11,10 @@ namespace PrefabTemplate.Templates.Assignments {
 
     public Sprite sprite {
       get {
+        if (this.resource == null) {
+          return null;
+        }
+
         return this.resource.sprite;
       }
     }

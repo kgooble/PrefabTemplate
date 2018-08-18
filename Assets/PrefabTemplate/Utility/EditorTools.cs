@@ -12,7 +12,7 @@ namespace PrefabTemplate.Utility {
     }
 
     public static void FieldNameLabel(string label) {
-      EditorGUILayout.LabelField(label, GUILayout.Width(100));
+      EditorGUILayout.LabelField(label, GUILayout.Width(150));
     }
   }
 }

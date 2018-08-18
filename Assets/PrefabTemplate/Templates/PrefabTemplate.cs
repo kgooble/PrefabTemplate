@@ -12,11 +12,13 @@ namespace PrefabTemplate.Templates {
     public Changeable[] changeables;
 
     public void Cleanup() {
+      #if UNITY_EDITOR
       if (!this.Required) {
         string path = AssetDatabase.GetAssetPath(this.gameObject.GetInstanceID());
         AssetDatabase.DeleteAsset(path);
         Debug.Log("Deleting asset at path, since it was not required: " + path);
       }
+      #endif
 
       DestroyImmediate(this, true);
     }

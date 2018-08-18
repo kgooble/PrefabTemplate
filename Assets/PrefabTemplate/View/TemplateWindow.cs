@@ -18,8 +18,11 @@ namespace PrefabTemplate.View {
     private List<TemplateView> templateViews;
 
     // [MenuItem("PrefabTemplate/Show Window")]
-    static void Init()
-    {
+    private static void Init() {
+      ShowWindow();
+    }
+
+    public static void ShowWindow() {
       TemplateWindow window = (TemplateWindow)EditorWindow.GetWindow(typeof(TemplateWindow));
       window.Show();
     }
@@ -75,10 +78,9 @@ namespace PrefabTemplate.View {
           }
 
           foreach (ImageResource resource in TemplateImport.Instance.Images) {
-            Debug.Log("Resource " + resource.sprite.name + " had " + resource.Usages + " usages");
 
             if (resource.Usages <= 0) {
-              Debug.Log("Deleting " + resource.sprite.name);
+              Debug.Log("Resource " + resource.sprite.name + " had 0 usages, <color=red>deleting</color>.");
               resource.DeleteAsset();
             }
           }

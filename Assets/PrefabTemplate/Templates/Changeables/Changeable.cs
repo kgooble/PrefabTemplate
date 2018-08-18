@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PrefabTemplate.Templates.Changeables {
   public abstract class Changeable : MonoBehaviour {
-    public string Name { get; }
+    public abstract string Name { get; }
 
     public abstract Assignment CreateAssignment(List<ImageResource> resources);
   }

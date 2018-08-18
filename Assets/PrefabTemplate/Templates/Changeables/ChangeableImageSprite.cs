@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using PrefabTemplate.Loader;
-using PrefabTemplate.Templates.Assignments;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +6,16 @@ namespace PrefabTemplate.Templates.Changeables {
   [Serializable]
   public class ChangeableImageSprite : StandaloneSprite {
     public Image[] images;
+
+    public override string Name {
+      get {
+        if (this.images.Length == 0 || this.images[0] == null) {
+          return "Unknown";
+        }
+
+        return this.images[0].name;
+      }
+    }
 
     public override bool PrefabRequired {
       get {

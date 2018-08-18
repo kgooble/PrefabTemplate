@@ -1,4 +1,9 @@
-﻿using System;
+using System;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using UnityEngine;
 
 namespace PrefabTemplate.Templates.Changeables {
@@ -9,5 +14,10 @@ namespace PrefabTemplate.Templates.Changeables {
     public bool alphaIsTransparency = true;
     public bool mipmapEnabled = false;
     public TextureWrapMode wrapMode = TextureWrapMode.Clamp;
+
+    #if UNITY_EDITOR
+    public TextureImporterCompression compression = TextureImporterCompression.Compressed;
+    public TextureCompressionQuality compressionQuality = TextureCompressionQuality.Normal;
+    #endif
   }
 }
